@@ -169,7 +169,7 @@
         &kp ESC     &kp Q    &kp W       &kp E           &kp R        &kp T                     &kp Y                &kp U                      &kp I        &kp O       &kp P       &kp LBKT
         &kp TAB     &kp A    &kp S       &kp D           &kp F        &kp G                     &kp H                &kp J                      &kp K        &kp L       &kp SEMI    &kp SQT 
         &kp LSHIFT  &kp Z    &kp X       &kp C           &kp V        &kp B                     &kp N                &kp M                      &kp COMMA    &kp DOT     &kp FSLH    &kp RBKT
-                                &kp LGUI    &mo 1      &lt NAVI RET              &kp SPACE       &kp BSPC
+                                &kp LGUI    &mo 1      &lt SYMBOL RET              &kp SPACE       &kp BSPC
       >;
     };
 
