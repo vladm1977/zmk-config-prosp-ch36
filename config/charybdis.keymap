@@ -18,6 +18,8 @@
 #define KEYS_R 5 6 7 8 9 15 16 17 18 19 25 26 27 28 29
 #define THUMBS 30 31 32 33 34 35  
 
+
+
 &sk {
   release-after-ms = <600>;
   quick-release;
@@ -42,70 +44,117 @@
 };
 
 / {
-  behaviors {
-    hml: hml {
-      compatible = "zmk,behavior-hold-tap";
-      #binding-cells = <2>;
-      flavor = "balanced";
-      tapping-term-ms = <2000>;
-      quick-tap-ms = <175>;
-      require-prior-idle-ms = <250>;
-      hold-trigger-key-positions = <KEYS_R THUMBS>;
-      hold-trigger-on-release;
-      bindings =
-        <&kp>,
-        <&kp>;
+    trackball_listener {
+        compatible = "zmk,input-behavior-listener";
+        device = <&vtrackball>;
+        layers = <0 2 3 4 5>;
+        evt-type = <INPUT_EV_REL>;
+        x-input-code = <INPUT_REL_X>;
+        y-input-code = <INPUT_REL_Y>;
+        scale-multiplier = <1>;
+        scale-divisor = <4>;
+        bindings = <&ib_toggle_layer 5>;
     };
 
-    hmr: hmr {
-      compatible = "zmk,behavior-hold-tap";
-      #binding-cells = <2>;
-      flavor = "balanced";
-      tapping-term-ms = <2000>;
-      quick-tap-ms = <175>;
-      require-prior-idle-ms = <250>;
-      hold-trigger-key-positions = <KEYS_L THUMBS>;
-      hold-trigger-on-release;
-      bindings =
-        <&kp>,
-        <&kp>;
-    };
-    hml_s: hml_s {
-      compatible = "zmk,behavior-hold-tap";
-      #binding-cells = <2>;
-      flavor = "balanced";
-      tapping-term-ms = <2000>;
-      quick-tap-ms = <175>;
-      require-prior-idle-ms = <0>;
-      hold-trigger-key-positions = <KEYS_R THUMBS>;
-      hold-trigger-on-release;
-      bindings =
-        <&kp>,
-        <&kp>;
+    trackball_snipe_listener {
+        compatible = "zmk,input-behavior-listener";   
+        device = <&vtrackball>;
+        layers = <>;
+        evt-type = <INPUT_EV_REL>;
+        x-input-code = <INPUT_REL_X>;
+        y-input-code = <INPUT_REL_Y>;
+        scale-multiplier = <1>;
+        scale-divisor = <12>;
     };
 
-    hmr_s: hmr_s {
-      compatible = "zmk,behavior-hold-tap";
-      #binding-cells = <2>;
-      flavor = "balanced";
-      tapping-term-ms = <2000>;
-      quick-tap-ms = <175>;
-      require-prior-idle-ms = <0>;
-      hold-trigger-key-positions = <KEYS_L THUMBS>;
-      hold-trigger-on-release;
-      bindings =
-        <&kp>,
-        <&kp>;
+    trackball_scroll_listener {
+        compatible = "zmk,input-behavior-listener";
+        device = <&vtrackball>;
+        layers = <1>;
+        evt-type = <INPUT_EV_REL>;            
+        x-input-code = <INPUT_REL_MISC>;
+        y-input-code = <INPUT_REL_WHEEL>;
+        y-invert;
+        bindings = <&ib_wheel_scaler 1 16>;
     };
 
-
-    smart_shift: smart_shift {
-      compatible = "zmk,behavior-mod-morph";
-      #binding-cells = <0>;
-      bindings = <&sk LSHIFT>, <&caps_word>;
-      mods = <(MOD_LSFT)>;
+    ib_wheel_scaler: ib_wheel_scaler {
+        compatible = "zmk,input-behavior-scaler";
+        #binding-cells = <2>;
+        evt-type = <INPUT_EV_REL>;
+        input-code = <INPUT_REL_WHEEL>;
     };
-  };
+
+    ib_toggle_layer: ib_toggle_layer {
+        compatible = "zmk,input-behavior-tog-layer";
+        #binding-cells = <1>;
+        time-to-live-ms = <750>;
+    };
+
+    behaviors {
+      hml: hml {
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>;
+        flavor = "balanced";
+        tapping-term-ms = <2000>;
+        quick-tap-ms = <175>;
+        require-prior-idle-ms = <250>;
+        hold-trigger-key-positions = <KEYS_R THUMBS>;
+        hold-trigger-on-release;
+        bindings =
+          <&kp>,
+          <&kp>;
+      };
+
+      hmr: hmr {
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>;
+        flavor = "balanced";
+        tapping-term-ms = <2000>;
+        quick-tap-ms = <175>;
+        require-prior-idle-ms = <250>;
+        hold-trigger-key-positions = <KEYS_L THUMBS>;
+        hold-trigger-on-release;
+        bindings =
+          <&kp>,
+          <&kp>;
+      };
+
+      hml_s: hml_s {
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>;
+        flavor = "balanced";
+        tapping-term-ms = <2000>;
+        quick-tap-ms = <175>;
+        require-prior-idle-ms = <0>;
+        hold-trigger-key-positions = <KEYS_R THUMBS>;
+        hold-trigger-on-release;
+        bindings =
+          <&kp>,
+          <&kp>;
+      };
+
+      hmr_s: hmr_s {
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>;
+        flavor = "balanced";
+        tapping-term-ms = <2000>;
+        quick-tap-ms = <175>;
+        require-prior-idle-ms = <0>;
+        hold-trigger-key-positions = <KEYS_L THUMBS>;
+        hold-trigger-on-release;
+        bindings =
+          <&kp>,
+          <&kp>;
+      };
+
+      smart_shift: smart_shift {
+        compatible = "zmk,behavior-mod-morph";
+        #binding-cells = <0>;
+        bindings = <&sk LSHIFT>, <&caps_word>;
+        mods = <(MOD_LSFT)>;
+      };
+    };
 
   combos {
     compatible = "zmk,combos";
