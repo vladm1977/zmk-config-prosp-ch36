@@ -18,4 +18,4 @@ manifest:
       remote: minhe7735 
       revision: reduce-size
   self:
-    path: config
+    path: config 
