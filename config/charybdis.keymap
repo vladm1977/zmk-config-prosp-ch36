@@ -44,6 +44,18 @@
                 <&mo>,
                 <&kp>;
         };
+                bt_clear: bt_clear {
+            compatible = "zmk,behavior-bluetooth-clear";
+            #binding-cells = <0>;
+        };
+        bt_prev: bt_prev {
+            compatible = "zmk,behavior-bluetooth-prev";
+            #binding-cells = <0>;
+        };
+        bt_next: bt_next {
+            compatible = "zmk,behavior-bluetooth-next";
+            #binding-cells = <0>;
+        };
     };
 
     keymap {
